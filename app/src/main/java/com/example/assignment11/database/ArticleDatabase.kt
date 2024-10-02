@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [DatabaseArticles::class],
-    version = 1
+    version = 3
 )
 abstract class ArticleDatabase : RoomDatabase() {
     abstract val getArticleDao: ArticleDao
@@ -22,7 +22,9 @@ fun getDatabase(context: Context): ArticleDatabase {
                 context.applicationContext,
                 ArticleDatabase::class.java,
                 "games"
-            ).build()
+            ).fallbackToDestructiveMigration()
+                .build()
+
         }
     }
 

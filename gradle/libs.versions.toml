@@ -1,4 +1,6 @@
 [versions]
+safeargsVersion="2.8.1"
+
 agp = "8.5.2"
 kotlin = "2.0.10"
 coreKtx = "1.13.1"
@@ -22,6 +24,8 @@ kotlinxCoroutinesAndroid = "1.8.1"
 kotlinxCoroutinesCore = "1.8.1"
 
 #Retrofit
+navigationFragmentKtxVersion = "2.7.0"
+navigationUiKtx = "2.7.0"
 retrofit = "2.10.0"
 retrofit2KotlinCoroutinesAdapter = "0.9.2"
 
@@ -38,6 +42,9 @@ glide = "4.16.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-navigation-fragment-ktx-v270 = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtxVersion" }
+androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx-v270 = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationUiKtx" }
 androidx-room-compiler-v252 = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCommon" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -78,4 +85,4 @@ room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCom
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-
+safeargs= {id = "androidx.navigation.safeargs", version.ref = "safeargsVersion"}

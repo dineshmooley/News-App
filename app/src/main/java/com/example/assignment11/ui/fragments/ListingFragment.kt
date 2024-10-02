@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.assignment11.R
 import com.example.assignment11.databinding.FragmentListingBinding
 import com.example.assignment11.ui.adapter.ListingAdapter
+import com.example.assignment11.ui.adapter.NewsListener
 import com.example.assignment11.ui.viewModels.ListingViewModel
 import com.example.assignment11.ui.viewModels.ListingViewModelFactory
 
@@ -31,16 +33,30 @@ class ListingFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory)[ListingViewModel::class.java]
 
         // Set up RecyclerView and Adapter
-        adapter = ListingAdapter()
+        adapter = ListingAdapter(
+            NewsListener { newsUrl ->
+                viewModel.onArticleClicked(newsUrl)
+            }
+        )
         binding.recyclerView.adapter = adapter
         binding.lifecycleOwner = this
 
         // Observe the data
         viewModel.newsList.observe(viewLifecycleOwner, Observer { articles ->
             articles?.let {
-                adapter.articles = it // Update adapter data
+                adapter.submitList(it) // Update adapter data
             }
         })
+
+        viewModel.navigateToArticle.observe(viewLifecycleOwner, Observer { url ->
+            url?.let {
+                // Correct SafeArgs usage for navigation
+                val action = ListingFragmentDirections.actionListingFragmentToNewsFragment(url)
+                this.findNavController().navigate(action)
+                viewModel.onNavigatedToArticle()
+            }
+        })
+
 
         return binding.root
     }

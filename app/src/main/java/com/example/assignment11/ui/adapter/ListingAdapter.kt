@@ -2,43 +2,65 @@ package com.example.assignment11.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.assignment11.databinding.ListItemBinding
 import com.example.assignment11.domain.Articles
 
-class ListingAdapter : RecyclerView.Adapter<ListingAdapter.ListingViewHolder>() {
+class ListingAdapter(private val clickListener: NewsListener) :
+    ListAdapter<Articles,ListingAdapter.ListingViewHolder>(NewsCallback()) {
 
-    inner class ListingViewHolder(val binding: ListItemBinding) :
+    inner class ListingViewHolder(private val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(article: Articles) {
+        fun bind(article: Articles, position: Int, clickListener: NewsListener) {
             binding.viewModel = article
+            binding.clickListener = clickListener
+            if (position % 4 == 0 || position % 4 == 2) {
+                this.itemView.layoutParams.height = 600
+            } else {
+                this.itemView.layoutParams.height = 400
+            }
             binding.executePendingBindings()
         }
     }
 
-    var articles: List<Articles> = emptyList()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+//    var articles: List<Articles> = emptyList()
+//        set(value) {
+//            field = value
+//            notifyDataSetChanged()
+//        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListingViewHolder {
         return ListingViewHolder(
             ListItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+                LayoutInflater.from(parent.context), parent, false
             )
         )
     }
 
-    override fun getItemCount(): Int {
-        return articles.size
-    }
+//    override fun getItemCount(): Int {
+//        return articles.size
+//    }
 
     override fun onBindViewHolder(holder: ListingViewHolder, position: Int) {
-        val article = articles[position]
-        holder.bind(article)
+        //val article = articles[position]
+        holder.bind(getItem(position), position, clickListener)
     }
 
+}
+
+class NewsCallback : DiffUtil.ItemCallback<Articles>()  {
+    override fun areItemsTheSame(oldItem: Articles, newItem: Articles): Boolean {
+        return oldItem.url == newItem.url
+    }
+
+    override fun areContentsTheSame(oldItem: Articles, newItem: Articles): Boolean {
+        return oldItem == newItem
+    }
+}
+
+class NewsListener(val clickListener: (articleUrl: String) -> Unit) {
+    fun onClick(article: Articles) = clickListener(article.url)
 }

@@ -22,5 +22,8 @@
         <action
             android:id="@+id/action_newsFragment_to_listingFragment"
             app:destination="@id/listingFragment" />
+        <argument
+            android:name="url"
+            app:argType="string" />
     </fragment>
 </navigation>

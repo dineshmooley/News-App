@@ -1,6 +1,8 @@
 package com.example.assignment11.ui.viewModels
 
 import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.assignment11.database.getDatabase
 import com.example.assignment11.repository.NewsRepository
@@ -16,6 +18,18 @@ class ListingViewModel(application: Application) : ViewModel() {
 
     private val database = getDatabase(application)
     private val newsRepository = NewsRepository(database)
+
+    private val _navigateToArticle = MutableLiveData<String?>()
+    val navigateToArticle : LiveData<String?>
+        get() = _navigateToArticle
+
+    fun onArticleClicked(id: String)    {
+        _navigateToArticle.value = id
+    }
+
+    fun onNavigatedToArticle()  {
+        _navigateToArticle.value = null
+    }
 
     init {
         viewModelScope.launch {
