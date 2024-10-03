@@ -8,6 +8,10 @@
         <variable
             name="viewModel"
             type="com.example.assignment11.ui.viewModels.ListingViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.example.assignment11.ui.fragments.ListingFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,6 +50,7 @@
 
                 <TextView
                     android:id="@+id/textView"
+                    android:onClick="@{() -> fragment.requestLocationPermission()}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/toolbar_text"

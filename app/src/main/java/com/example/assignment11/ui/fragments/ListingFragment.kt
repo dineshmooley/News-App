@@ -90,7 +90,7 @@ class ListingFragment : Fragment() {
         return binding.root
     }
 
-    private fun requestLocationPermission() {
+    fun requestLocationPermission() {
         locationPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
 
