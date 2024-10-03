@@ -4,7 +4,8 @@
     <shape
         android:shape="rectangle"
         android:thickness="5dp">
+        <solid android:color="@color/black">
+        </solid>
     </shape>
-    <color android:color="@color/black"/>
 </item>
 </layer-list>

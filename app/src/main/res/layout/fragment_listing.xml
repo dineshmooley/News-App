@@ -60,7 +60,7 @@
                     android:layout_width="60sp"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/icon"
-                    app:imageUrl="@{viewModel.iconCode}"
+                    app:iconUrl="@{viewModel.iconCode}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

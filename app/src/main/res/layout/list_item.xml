@@ -31,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToOutline="true"
+            android:contentDescription="@string/news_thumbnail"
             android:scaleType="centerCrop"
             app:imageUrl="@{viewModel.urlToImage}"
             app:layout_constraintBottom_toBottomOf="parent"
