@@ -2,7 +2,6 @@ package com.example.assignment11.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -26,12 +25,6 @@ class ListingAdapter(private val clickListener: NewsListener) :
         }
     }
 
-//    var articles: List<Articles> = emptyList()
-//        set(value) {
-//            field = value
-//            notifyDataSetChanged()
-//        }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListingViewHolder {
         return ListingViewHolder(
             ListItemBinding.inflate(
@@ -40,12 +33,7 @@ class ListingAdapter(private val clickListener: NewsListener) :
         )
     }
 
-//    override fun getItemCount(): Int {
-//        return articles.size
-//    }
-
     override fun onBindViewHolder(holder: ListingViewHolder, position: Int) {
-        //val article = articles[position]
         holder.bind(getItem(position), position, clickListener)
     }
 

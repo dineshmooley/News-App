@@ -1,8 +1,8 @@
 package com.example.assignment11.network
 
-import com.example.assignment11.domain.NewsResponse
-import com.example.assignment11.util.Constants.Companion.API_KEY
-import com.example.assignment11.util.Constants.Companion.BASE_URL
+import WeatherResponse
+import com.example.assignment11.util.Constants.Companion.LOCATION_BASE_URL
+import com.example.assignment11.util.Constants.Companion.WEATHER_API_KEY
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -12,13 +12,13 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface NewsService   {
-    @GET("v2/top-headlines")
-    fun getNews(
-        @Query("country") countryCode: String = "us",
-        @Query("page") pageNumber: Int = 1,
-        @Query("apiKey") apiKey: String = API_KEY
-    ): Deferred<NewsResponse>
+interface Weather {
+    @GET("weather?")
+    fun getLocation(
+        @Query("lat") latitude: String,
+        @Query("lon") longitude: String,
+        @Query("appid") apiKey: String = WEATHER_API_KEY
+    ): Deferred<WeatherResponse>
 }
 
 private val moshi = Moshi.Builder()
@@ -26,13 +26,13 @@ private val moshi = Moshi.Builder()
     .build()
 
 private val retrofit = Retrofit.Builder()
-    .baseUrl(BASE_URL)
+    .baseUrl(LOCATION_BASE_URL)
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .addCallAdapterFactory(CoroutineCallAdapterFactory())
     .build()
 
-object Network {
-    val news: NewsService by lazy   {
-        retrofit.create(NewsService::class.java)
+object WeatherNetwork   {
+    val location: Weather by lazy {
+        retrofit.create(Weather::class.java)
     }
 }

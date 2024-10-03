@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.assignment11.ui.viewModels.ListingViewModel" />
@@ -18,11 +19,12 @@
             android:id="@+id/recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="10dp"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchView"
+            app:layout_constraintTop_toBottomOf="@+id/search_view"
             app:spanCount="2"
             tools:listitem="@layout/list_item" />
 
@@ -39,32 +41,87 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="16dp">
 
                 <TextView
+                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Listing App"
-                    android:textSize="24dp"
+                    android:text="@string/toolbar_text"
                     android:textColor="#FFFFFF"
+                    android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/weather_icon"
+                    android:layout_width="60sp"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/icon"
+                    app:imageUrl="@{viewModel.iconCode}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/weather_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.weather}"
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/weather_icon"
+                    app:layout_constraintTop_toBottomOf="@+id/location"
+                    tools:text="Raining" />
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.locationName}"
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBottom_toTopOf="@+id/weather_type"
+                    app:layout_constraintEnd_toStartOf="@+id/weather_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:text="Location" />
+
+                <TextView
+                    android:id="@+id/temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="2dp"
+                    android:layout_marginEnd="4dp"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.temp}"
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/location"
+                    app:layout_constraintEnd_toStartOf="@+id/location"
+                    tools:text="31C" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.appcompat.widget.Toolbar>
 
         <EditText
-            android:id="@+id/searchView"
+            android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Search..."
             android:layout_margin="10dp"
+            android:autofillHints="name"
             android:background="@drawable/edittext_background"
             android:drawableStart="@android:drawable/ic_menu_search"
+            android:hint="@string/search"
+            android:inputType="text"
+            android:text="@={viewModel.searchQuery}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

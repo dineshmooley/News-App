@@ -1,6 +1,4 @@
-package com.example.assignment11.network
-
-import com.example.assignment11.domain.Articles
+package com.example.assignment11.domain
 
 data class NewsResponse (
     val articles: List<Articles>,

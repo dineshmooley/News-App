@@ -21,12 +21,9 @@ class NewsRepository(private val database: ArticleDatabase) {
             val articleList = Network.news.getNews().await().articles
             try {
                 database.getArticleDao.insert(*articleList.asDomainModel())
-                println(articleList)
             } catch (e: Exception) {
                 println("Server Error: $e")
             }
-
         }
     }
-
 }
